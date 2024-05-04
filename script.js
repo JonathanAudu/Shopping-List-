@@ -1,6 +1,7 @@
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
 const itemList = document.querySelector(".item-list");
+const clearBtn = document.getElementById("clear");
 
 // Add Item
 function addItem(e) {
@@ -21,8 +22,27 @@ function addItem(e) {
     itemList.appendChild(newItem);
     itemInput.value = "";
   }
+}
 
+// Remove Item
+function removeItem(e) {
+  if (e.target.parentElement.classList.contains("remove-item")) {
+    if (confirm("Are you sure you want to remove this item?")) {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+// Remove All Items
+function removeAllItem(e) {
+  if (confirm("Are you sure you want to remove all items?")) {
+    while (itemList.firstChild) {
+      itemList.removeChild(itemList.firstChild);
+    }
+  }
 }
 
 // Event Listeners
 itemForm.addEventListener("submit", addItem);
+itemList.addEventListener("click", removeItem);
+clearBtn.addEventListener("click", removeAllItem);
